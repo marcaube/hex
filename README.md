@@ -13,10 +13,10 @@ Hex is a sandbox where I try stuff and learn about DDD and Hexagonal Architectur
 ## Testing
 
 ```bash
-$ phpunit
+$ ./vendor/bin/phpunit
 
 # You can also give the tests a run for their money
-$ humbug
+$ ./vendor/bin/humbug
 ```
 
 
