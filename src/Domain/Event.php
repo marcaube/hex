@@ -20,6 +20,11 @@ class Event
     private $organizer;
 
     /**
+     * @var array
+     */
+    private $attendees = [];
+
+    /**
      * @param \DateTimeImmutable $start
      * @param \DateTimeImmutable $end
      * @param Email              $organizer
@@ -45,5 +50,34 @@ class Event
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfAttendees()
+    {
+        return count($this->attendees);
+    }
+
+    /**
+     * @param Email $attendee
+     */
+    public function addAttendee(Email $attendee)
+    {
+        $this->attendees[] = $attendee;
+    }
+
+    /**
+     * @param Email $attendee
+     */
+    public function removeAttendee(Email $attendee)
+    {
+        foreach ($this->attendees as $key => $value) {
+            if ($value == $attendee) {
+                unset($this->attendees[$key]);
+                break;
+            }
+        }
     }
 }

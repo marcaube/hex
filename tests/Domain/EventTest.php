@@ -26,6 +26,11 @@ class EventTest extends \PHPUnit_Framework_TestCase
     private $organizer;
 
     /**
+     * @var \Ob\Hex\Domain\Email
+     */
+    private $attendee;
+
+    /**
      * @var Event
      */
     private $event;
@@ -35,6 +40,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $this->startDate = new \DateTimeImmutable();
         $this->endDate   = new \DateTimeImmutable();
         $this->organizer = m::mock('Ob\Hex\Domain\Email');
+        $this->attendee  = m::mock('Ob\Hex\Domain\Email');
 
         $this->event = new Event($this->startDate, $this->endDate, $this->organizer);
     }
@@ -56,5 +62,27 @@ class EventTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->endDate, $this->event->getEndDate());
         $this->assertInstanceOf('DateTimeImmutable', $this->event->getStartDate());
+    }
+
+    public function testInitiallyHasNoAttendees()
+    {
+        $this->assertEquals(0, $this->event->getNumberOfAttendees());
+    }
+
+    public function testAttendeeCanBeAdded()
+    {
+        $this->event->addAttendee($this->attendee);
+        $this->assertEquals(1, $this->event->getNumberOfAttendees());
+
+        return $this->event;
+    }
+
+    /**
+     * @depends testAttendeeCanBeAdded
+     */
+    public function testAttendeeCanBeRemoved(Event $event)
+    {
+        $event->removeAttendee($this->attendee);
+        $this->assertEquals(0, $event->getNumberOfAttendees());
     }
 }
