@@ -12,7 +12,7 @@ final class Email
     /** @var string */
     private $email;
 
-    public function __construct($email
+    public function __construct($email)
     {
         if (!/* boring validation stuff */) {
             throw new InvalidArgumentException();
