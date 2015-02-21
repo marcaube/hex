@@ -1,0 +1,20 @@
+# Composer
+composer.lock
+vendor
+bin
+
+# Humbug log files
+humbuglog.txt
+humbuglog.json
+
+# PHPUnit
+phpunit.xml
+
+# PHPUnit coverage-html output folder
+build
+
+# Composer PHAR
+composer.phar
+
+# Checkstyle fixer PHAR
+php-cs-fixer.phar
