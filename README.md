@@ -10,6 +10,14 @@
 Hex is a sandbox where I try stuff and learn about DDD and Hexagonal Architecture.
 
 
+## Documentation
+
+Here are succinct descriptions of concepts related to [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming),
+[DDD](https://en.wikipedia.org/wiki/Domain-driven_design), and Hexagonal Architecture.
+
+- [Entity](doc/entity.md)
+
+
 ## Testing
 
 ```bash
