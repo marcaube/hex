@@ -4,8 +4,7 @@ namespace Ob\Hex\Domain;
 
 class Email
 {
-    // Hardly fool-proof, i.e no IP support
-    // TODO: find an RFC 5322 compliant regex or use a validation library
+    // Hardly fool-proof, i.e no IP support. Definetly not RFC 5322 compliant
     const EMAIL_FORMAT = "/^(?!.{255,})(?!.{65,}@)([!#-'*+\/-9=?^-~-]+)(?>\.(?1))*@(?!.*[^.]{64,})(?>[a-z0-9](?>[a-z0-9-]*[a-z0-9])?\.){1,126}[a-z]{2,6}$/iD";
 
     /**
