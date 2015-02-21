@@ -9,5 +9,6 @@ All Notable changes to `Hex` will be documented in this file.
 
 ### Added
 
+- `Event` entity
 - `Email` value object
 
