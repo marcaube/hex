@@ -16,6 +16,7 @@ Here are succinct descriptions of concepts related to [OOP](https://en.wikipedia
 [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), and Hexagonal Architecture.
 
 - [Entity](doc/entity.md)
+- [Repository](doc/repository.md)
 - [Value Object](doc/value-object.md)
 
 
