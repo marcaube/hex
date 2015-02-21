@@ -11,7 +11,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanBeCreated()
     {
-        $this->assertInstanceOf('Ob\Hex\Domain\Email', new Email('foo@bar.com'));
+        $this->assertInstanceOf(Email::class, new Email('foo@bar.com'));
     }
 
     public function testCanBeRetrievedAsAString()
