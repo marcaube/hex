@@ -22,7 +22,12 @@ class Event
     /**
      * @var array
      */
-    private $attendees = [];
+    private $attendeesAdded = [];
+
+    /**
+     * @var array
+     */
+    private $attendeesRemoved = [];
 
     /**
      * @param \DateTimeImmutable $start
@@ -57,7 +62,15 @@ class Event
      */
     public function getNumberOfAttendees()
     {
-        return count($this->attendees);
+        $count = count($this->attendeesAdded);
+
+        foreach ($this->attendeesRemoved as $attendee) {
+            if (in_array($attendee, $this->attendeesAdded)) {
+                $count -= 1;
+            }
+        }
+
+        return $count;
     }
 
     /**
@@ -65,7 +78,7 @@ class Event
      */
     public function addAttendee(Email $attendee)
     {
-        $this->attendees[] = $attendee;
+        $this->attendeesAdded[] = $attendee;
     }
 
     /**
@@ -73,11 +86,6 @@ class Event
      */
     public function removeAttendee(Email $attendee)
     {
-        foreach ($this->attendees as $key => $value) {
-            if ($value == $attendee) {
-                unset($this->attendees[$key]);
-                break;
-            }
-        }
+        $this->attendeesRemoved[] = $attendee;
     }
 }
