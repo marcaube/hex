@@ -9,6 +9,7 @@ All Notable changes to `Hex` will be documented in this file.
 
 ### Added
 
+- `MeetingRoom` entity
 - `Reservation` entity
 - `Email` value object
 

@@ -58,6 +58,16 @@ class Reservation
     }
 
     /**
+     * @return \DateInterval
+     */
+    public function getDuration()
+    {
+        $interval = $this->startDate->diff($this->endDate);
+
+        return $interval->h * 60 + $interval->i;
+    }
+
+    /**
      * @return int
      */
     public function getNumberOfAttendees()

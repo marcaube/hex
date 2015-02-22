@@ -15,12 +15,12 @@ Hex is a sandbox where I try stuff and learn about DDD, Hexagonal Architecture, 
 The problem I'm trying to model in Hex is a meeting room, for which employees can make reservations. The business rules
 are quite simple:
 
-- A **meeting room** has a limited capacity
-- **Meetings** cannot take place oustide business hours
-- Only one meeting can take place at the same time
-- **Employees** can make a **reservation** up to 7 days in advance
-- A meeting duration cannot exceed 3h
-- Employees can consult the meeting room **schedule**
+- [x] A **meeting room** has a limited capacity
+- [ ] **Meetings** cannot take place oustide business hours
+- [ ] Only one meeting can take place at the same time
+- [x] Meeting duration cannot exceed 3h
+- [ ] **Employees** can make a **reservation** up to 7 days in advance
+- [ ] Employees can consult the meeting room **schedule**
 
 
 ## Documentation

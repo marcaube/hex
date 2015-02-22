@@ -6,9 +6,9 @@ use Mockery as m;
 use Ob\Hex\Domain\Reservation;
 
 /**
- * @covers Ob\Hex\Domain\Event
+ * @covers Ob\Hex\Domain\Reservation
  */
-class EventTest extends \PHPUnit_Framework_TestCase
+class ReservationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \DateTimeImmutable
@@ -33,16 +33,16 @@ class EventTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Reservation
      */
-    private $event;
+    private $reservation;
 
     protected function setUp()
     {
         $this->startDate = new \DateTimeImmutable();
-        $this->endDate   = new \DateTimeImmutable();
+        $this->endDate   = $this->startDate->modify('+1 hour 30 minutes');
         $this->organizer = m::mock('Ob\Hex\Domain\Email');
         $this->attendee  = m::mock('Ob\Hex\Domain\Email');
 
-        $this->event = new Reservation($this->startDate, $this->endDate, $this->organizer);
+        $this->reservation = new Reservation($this->startDate, $this->endDate, $this->organizer);
     }
 
     public function testCanBeCreated()
@@ -54,27 +54,32 @@ class EventTest extends \PHPUnit_Framework_TestCase
 
     public function testStartDateCanBeRetrieved()
     {
-        $this->assertEquals($this->startDate, $this->event->getStartDate());
-        $this->assertInstanceOf('DateTimeImmutable', $this->event->getStartDate());
+        $this->assertEquals($this->startDate, $this->reservation->getStartDate());
+        $this->assertInstanceOf('DateTimeImmutable', $this->reservation->getStartDate());
     }
 
     public function testEndDateCanBeRetrieved()
     {
-        $this->assertEquals($this->endDate, $this->event->getEndDate());
-        $this->assertInstanceOf('DateTimeImmutable', $this->event->getStartDate());
+        $this->assertEquals($this->endDate, $this->reservation->getEndDate());
+        $this->assertInstanceOf('DateTimeImmutable', $this->reservation->getStartDate());
+    }
+
+    public function testDurationCanBeRetrieved()
+    {
+        $this->assertEquals(90, $this->reservation->getDuration());
     }
 
     public function testInitiallyHasNoAttendees()
     {
-        $this->assertEquals(0, $this->event->getNumberOfAttendees());
+        $this->assertEquals(0, $this->reservation->getNumberOfAttendees());
     }
 
     public function testAttendeeCanBeAdded()
     {
-        $this->event->addAttendee($this->attendee);
-        $this->assertEquals(1, $this->event->getNumberOfAttendees());
+        $this->reservation->addAttendee($this->attendee);
+        $this->assertEquals(1, $this->reservation->getNumberOfAttendees());
 
-        return $this->event;
+        return $this->reservation;
     }
 
     /**
