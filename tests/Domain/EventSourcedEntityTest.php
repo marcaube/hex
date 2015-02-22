@@ -11,7 +11,7 @@ class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanBeCreatedFromAListOfEvents()
     {
-        $entity = Entity::createFromEvents([
+        $entity = Entity::createFromChanges([
             new EntitityWasCreated(),
         ]);
 
@@ -21,7 +21,7 @@ class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
 
     public function testIgnoresUnhandledEvents()
     {
-        $entity = Entity::createFromEvents([
+        $entity = Entity::createFromChanges([
             new FooWasChanged(),
         ]);
 
@@ -32,9 +32,9 @@ class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
     public function testEventsCanBeRetrived()
     {
         $events = [new EntitityWasCreated()];
-        $entity = Entity::createFromEvents($events);
+        $entity = Entity::createFromChanges($events);
 
-        $this->assertEquals($events, $entity->getEvents());
+        $this->assertEquals($events, $entity->getChanges());
     }
 }
 

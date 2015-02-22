@@ -4,41 +4,41 @@ namespace Ob\Hex\Domain;
 
 abstract class EventSourcedEntity
 {
-    protected $events = [];
+    protected $changes = [];
 
-    public static function createFromEvents(array $events)
+    public static function createFromChanges(array $changes)
     {
-        return new static($events);
+        return new static($changes);
     }
 
-    protected function __construct(array $events)
+    protected function __construct(array $changes)
     {
-        foreach ($events as $event) {
-            $this->apply($event);
+        foreach ($changes as $change) {
+            $this->apply($change);
         }
     }
 
     /**
-     * @param mixed $event
+     * @param mixed $change
      */
-    protected function apply($event)
+    protected function apply($change)
     {
-        $classParts = explode('\\', get_class($event));
+        $classParts = explode('\\', get_class($change));
         $method     = 'apply' . end($classParts);
 
         if (!method_exists($this, $method)) {
             return;
         }
 
-        $this->events[] = $event;
-        $this->$method($event);
+        $this->changes[] = $change;
+        $this->$method($change);
     }
 
     /**
      * @return array
      */
-    public function getEvents()
+    public function getChanges()
     {
-        return $this->events;
+        return $this->changes;
     }
 }

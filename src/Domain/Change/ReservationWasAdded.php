@@ -1,6 +1,6 @@
 <?php
 
-namespace Ob\Hex\Domain\Event;
+namespace Ob\Hex\Domain\Change;
 
 use Ob\Hex\Domain\Reservation;
 

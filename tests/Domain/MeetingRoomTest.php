@@ -7,8 +7,8 @@ use Ob\Hex\Domain\MeetingRoom;
 
 /**
  * @covers Ob\Hex\Domain\MeetingRoom
- * @covers Ob\Hex\Domain\Event\MeetingRoomWasCreated
- * @covers Ob\Hex\Domain\Event\ReservationWasAdded
+ * @covers Ob\Hex\Domain\Change\MeetingRoomWasCreated
+ * @covers Ob\Hex\Domain\Change\ReservationWasAdded
  *
  * @uses Ob\Hex\Domain\EventSourcedEntity
  */

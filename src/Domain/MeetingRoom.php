@@ -2,8 +2,8 @@
 
 namespace Ob\Hex\Domain;
 
-use Ob\Hex\Domain\Event\MeetingRoomWasCreated;
-use Ob\Hex\Domain\Event\ReservationWasAdded;
+use Ob\Hex\Domain\Change\MeetingRoomWasCreated;
+use Ob\Hex\Domain\Change\ReservationWasAdded;
 
 class MeetingRoom extends EventSourcedEntity
 {
@@ -147,22 +147,22 @@ class MeetingRoom extends EventSourcedEntity
     }
 
     /**
-     * @param MeetingRoomWasCreated $event
+     * @param MeetingRoomWasCreated $change
      */
-    protected function applyMeetingRoomWasCreated(MeetingRoomWasCreated $event)
+    protected function applyMeetingRoomWasCreated(MeetingRoomWasCreated $change)
     {
-        $this->capacity        = $event->capacity;
-        $this->maximumDuration = $event->maxDuration;
+        $this->capacity        = $change->capacity;
+        $this->maximumDuration = $change->maxDuration;
     }
 
     /**
-     * @param ReservationWasAdded $event
+     * @param ReservationWasAdded $change
      */
-    protected function applyReservationWasAdded(ReservationWasAdded $event)
+    protected function applyReservationWasAdded(ReservationWasAdded $change)
     {
         // This key ensure the reservations are sorted
-        $date = $event->reservation->getStartDate()->format('YmdHis');
+        $date = $change->reservation->getStartDate()->format('YmdHis');
 
-        $this->reservations[$date] = $event->reservation;
+        $this->reservations[$date] = $change->reservation;
     }
 }
