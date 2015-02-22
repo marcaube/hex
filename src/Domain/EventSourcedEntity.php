@@ -39,6 +39,9 @@ abstract class EventSourcedEntity
      */
     public function getChanges()
     {
-        return $this->changes;
+        $changes       = $this->changes;
+        $this->changes = [];
+
+        return $changes;
     }
 }
