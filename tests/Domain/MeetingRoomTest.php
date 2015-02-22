@@ -7,6 +7,8 @@ use Ob\Hex\Domain\MeetingRoom;
 
 /**
  * @covers Ob\Hex\Domain\MeetingRoom
+ * @covers Ob\Hex\Domain\Event\MeetingRoomWasCreated
+ * @covers Ob\Hex\Domain\Event\ReservationWasAdded
  */
 class MeetingRoomTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +31,7 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
     {
         $this->capacityLimit = 3;
         $this->maxDuration   = 60 * 3;
-        $this->meetingRoom   = new MeetingRoom($this->capacityLimit, $this->maxDuration);
+        $this->meetingRoom   = MeetingRoom::create($this->capacityLimit, $this->maxDuration);
     }
 
     public function testCanBeCreated()
