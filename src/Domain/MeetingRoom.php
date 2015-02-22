@@ -57,6 +57,16 @@ class MeetingRoom extends EventSourcedEntity
     }
 
     /**
+     * @param ScheduleRenderer $renderer
+     *
+     * @return mixed
+     */
+    public function renderScheduleWith(ScheduleRenderer $renderer)
+    {
+        return $renderer->render($this->reservations);
+    }
+
+    /**
      * @param Reservation $reservation
      *
      * @throws \RuntimeException
@@ -150,6 +160,9 @@ class MeetingRoom extends EventSourcedEntity
      */
     protected function applyReservationWasAdded(ReservationWasAdded $event)
     {
-        $this->reservations[] = $event->reservation;
+        // This key ensure the reservations are sorted
+        $date = $event->reservation->getStartDate()->format('YmdHis');
+
+        $this->reservations[$date] = $event->reservation;
     }
 }

@@ -68,6 +68,14 @@ class Reservation
     }
 
     /**
+     * @return Email
+     */
+    public function getOrganizer()
+    {
+        return $this->organizer;
+    }
+
+    /**
      * @return int
      */
     public function getNumberOfAttendees()

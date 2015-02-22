@@ -69,6 +69,11 @@ class ReservationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(90, $this->reservation->getDuration());
     }
 
+    public function testOrganizerCanBeRetrieved()
+    {
+        $this->assertEquals($this->organizer, $this->reservation->getOrganizer());
+    }
+
     public function testInitiallyHasNoAttendees()
     {
         $this->assertEquals(0, $this->reservation->getNumberOfAttendees());

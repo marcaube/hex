@@ -12,7 +12,7 @@ use Ob\Hex\Domain\MeetingRoom;
  *
  * @uses Ob\Hex\Domain\EventSourcedEntity
  */
-class MeetingRoomTest extends \PHPUnit_Framework_TestCase
+class MeetingRoomTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
 {
     /**
      * @var int
@@ -132,5 +132,18 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
         $reservation->shouldReceive('getEndDate')->andReturn($endDate);
 
         return $reservation;
+    }
+
+    public function testReservationScheduleCanBeRendered()
+    {
+        $startDate   = new \DateTimeImmutable();
+        $endDate     = new \DateTimeImmutable('+1 hour');
+        $reservation = $this->createReservation(1, 60, $startDate, $endDate);
+
+        $renderer = m::mock('Ob\Hex\Domain\ScheduleRenderer');
+        $renderer->shouldReceive('render')->with([$startDate->format('YmdHis') => $reservation]);
+
+        $this->meetingRoom->makeReservation($reservation);
+        $this->meetingRoom->renderScheduleWith($renderer);
     }
 }

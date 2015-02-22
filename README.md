@@ -20,7 +20,7 @@ are quite simple:
 - [x] Only one meeting can take place at the same time (no overlap)
 - [x] Meeting duration cannot exceed 3h
 - [x] **Employees** can make a **reservation** up to 7 days in advance
-- [ ] Employees can consult the meeting room **schedule**
+- [x] Employees can consult the meeting room **schedule**
 
 
 ## Documentation
