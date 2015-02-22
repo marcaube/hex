@@ -2,7 +2,7 @@
 
 namespace Ob\Hex\Domain;
 
-class Event
+class Reservation
 {
     /**
      * @var \DateTimeImmutable

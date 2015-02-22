@@ -7,13 +7,26 @@
 [![Sensio Labs Insight](https://img.shields.io/sensiolabs/i/cf3f42b3-32f1-4c08-9302-65c4827f8ef1.svg?style=flat-square)](https://insight.sensiolabs.com/projects/cf3f42b3-32f1-4c08-9302-65c4827f8ef1)
 
 
-Hex is a sandbox where I try stuff and learn about DDD and Hexagonal Architecture.
+Hex is a sandbox where I try stuff and learn about DDD, Hexagonal Architecture, CQRS and Event Sourcing.
+
+
+## Domain
+
+The problem I'm trying to model in Hex is a meeting room, for which employees can make reservations. The business rules
+are quite simple:
+
+- A **meeting room** has a limited capacity
+- **Meetings** cannot take place oustide business hours
+- Only one meeting can take place at the same time
+- **Employees** can make a **reservation** up to 7 days in advance
+- A meeting duration cannot exceed 3h
+- Employees can consult the meeting room **schedule**
 
 
 ## Documentation
 
 Here are succinct descriptions of concepts related to [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming),
-[DDD](https://en.wikipedia.org/wiki/Domain-driven_design), and Hexagonal Architecture.
+[DDD](https://en.wikipedia.org/wiki/Domain-driven_design), Hexagonal Architecture, CQRS and Event Sourcing.
 
 - [Entity](doc/entity.md)
 - [Repository](doc/repository.md)

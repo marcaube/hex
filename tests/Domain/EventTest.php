@@ -3,7 +3,7 @@
 namespace Ob\Hex\Tests\Domain;
 
 use Mockery as m;
-use Ob\Hex\Domain\Event;
+use Ob\Hex\Domain\Reservation;
 
 /**
  * @covers Ob\Hex\Domain\Event
@@ -31,7 +31,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
     private $attendee;
 
     /**
-     * @var Event
+     * @var Reservation
      */
     private $event;
 
@@ -42,14 +42,14 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $this->organizer = m::mock('Ob\Hex\Domain\Email');
         $this->attendee  = m::mock('Ob\Hex\Domain\Email');
 
-        $this->event = new Event($this->startDate, $this->endDate, $this->organizer);
+        $this->event = new Reservation($this->startDate, $this->endDate, $this->organizer);
     }
 
     public function testCanBeCreated()
     {
         $organizer = m::mock('Ob\Hex\Domain\Email');
 
-        $this->assertInstanceOf(Event::class, new Event(new \DateTimeImmutable(), new \DateTimeImmutable(), $organizer));
+        $this->assertInstanceOf(Reservation::class, new Reservation(new \DateTimeImmutable(), new \DateTimeImmutable(), $organizer));
     }
 
     public function testStartDateCanBeRetrieved()
@@ -80,7 +80,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testAttendeeCanBeAdded
      */
-    public function testAttendeeCanBeRemoved(Event $event)
+    public function testAttendeeCanBeRemoved(Reservation $event)
     {
         $event->removeAttendee($this->attendee);
         $this->assertEquals(0, $event->getNumberOfAttendees());
