@@ -48,9 +48,7 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
 
     public function testReservationCanBeAdded()
     {
-        $reservation = m::mock('Ob\Hex\Domain\Reservation');
-        $reservation->shouldReceive('getNumberOfAttendees')->andReturn($this->capacityLimit);
-        $reservation->shouldReceive('getDuration')->andReturn($this->maxDuration);
+        $reservation = $this->createReservation($this->capacityLimit, $this->maxDuration);
 
         $this->meetingRoom->makeReservation($reservation);
         $this->assertEquals(1, $this->meetingRoom->getNumberOfReservations());
@@ -58,9 +56,7 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
 
     public function testHasALimitedCapacity()
     {
-        $reservation = m::mock('Ob\Hex\Domain\Reservation');
-        $reservation->shouldReceive('getNumberOfAttendees')->andReturn($this->capacityLimit + 1);
-        $reservation->shouldReceive('getDuration')->andReturn($this->maxDuration);
+        $reservation = $this->createReservation($this->capacityLimit + 1, $this->maxDuration);
 
         $this->setExpectedException('\RuntimeException');
         $this->meetingRoom->makeReservation($reservation);
@@ -68,11 +64,18 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
 
     public function testReservationsHaveAMaximumDuration()
     {
-        $reservation = m::mock('Ob\Hex\Domain\Reservation');
-        $reservation->shouldReceive('getNumberOfAttendees')->andReturn(1);
-        $reservation->shouldReceive('getDuration')->andReturn(60 * 4);
+        $reservation = $this->createReservation(1, 60 * 4);
 
         $this->setExpectedException('\RuntimeException');
         $this->meetingRoom->makeReservation($reservation);
+    }
+
+    private function createReservation($attendees, $duration)
+    {
+        $reservation = m::mock('Ob\Hex\Domain\Reservation');
+        $reservation->shouldReceive('getNumberOfAttendees')->andReturn($attendees);
+        $reservation->shouldReceive('getDuration')->andReturn($duration);
+
+        return $reservation;
     }
 }
