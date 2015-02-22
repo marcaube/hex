@@ -33,4 +33,12 @@ abstract class EventSourcedEntity
         $this->events[] = $event;
         $this->$method($event);
     }
+
+    /**
+     * @return array
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
 }

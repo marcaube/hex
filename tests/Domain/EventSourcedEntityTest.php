@@ -28,6 +28,14 @@ class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Entity::class, $entity);
         $this->assertEquals(0, $entity->getFoo());
     }
+
+    public function testEventsCanBeRetrived()
+    {
+        $events = [new EntitityWasCreated()];
+        $entity = Entity::createFromEvents($events);
+
+        $this->assertEquals($events, $entity->getEvents());
+    }
 }
 
 class Entity extends EventSourcedEntity
