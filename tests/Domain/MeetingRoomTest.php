@@ -72,25 +72,37 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
         $this->meetingRoom->makeReservation($reservation);
     }
 
-    public function testReservationsCanNotOverlap()
+    /**
+     * @dataProvider overlapProvider
+     */
+    public function testReservationsCanNotOverlap($reservation1, $reservation2)
     {
-        $reservation1 = $this->createReservation(
-            $this->capacityLimit,
-            $this->maxDuration,
-            new \DateTimeImmutable('now'),
-            new \DateTimeImmutable('+1 hour')
-        );
-
-        $reservation2 = $this->createReservation(
-            $this->capacityLimit,
-            $this->maxDuration,
-            new \DateTimeImmutable('+30 minutes'),
-            new \DateTimeImmutable('+2 hours')
-        );
-
         $this->setExpectedException('\RuntimeException');
         $this->meetingRoom->makeReservation($reservation1);
         $this->meetingRoom->makeReservation($reservation2);
+    }
+
+    public function overlapProvider()
+    {
+        $now              = new \DateTimeImmutable();
+        $priorReservation = $this->createReservation($this->capacityLimit, $this->maxDuration, $now, $now->modify('+1 hour'));
+
+        return [
+            // Reservation overlap the start of a prior reservation
+            [$priorReservation, $this->createReservation($this->capacityLimit, $this->maxDuration, $now->modify('-30 minutes'), $now->modify('+30 minutes'))],
+
+            // Reservation overlap the end of a prior reservation
+            [$priorReservation, $this->createReservation($this->capacityLimit, $this->maxDuration, $now->modify('+30 minutes'), $now->modify('+90 minutes'))],
+
+            // Reservation "includes" a prior reservation
+            [$priorReservation, $this->createReservation($this->capacityLimit, $this->maxDuration, $now->modify('-30 minutes'), $now->modify('+90 minutes'))],
+
+            // Reservation is "inside" a prior reservation
+            [$priorReservation, $this->createReservation($this->capacityLimit, $this->maxDuration, $now->modify('+15 minutes'), $now->modify('+30 minutes'))],
+
+            // Reservation is exactly like a prior reservation
+            [$priorReservation, $priorReservation],
+        ];
     }
 
     public function testReservationCanBeMadeUpTo7DaysInAdvance()

@@ -86,10 +86,16 @@ class MeetingRoom extends EventSourcedEntity
     private function ensureDoesNotOverlap(Reservation $reservation)
     {
         foreach ($this->reservations as $reservedTimeSlot) {
-            if (
-                ($reservation->getStartDate() >= $reservedTimeSlot->getStartDate() && $reservation->getStartDate() < $reservedTimeSlot->getEndDate())
-                || ($reservation->getEndDate() > $reservedTimeSlot->getStartDate() && $reservation->getEndDate() <= $reservedTimeSlot->getEndDate())
-            ) {
+            // The start date is inside a reservation time slot
+            $startOverlaps = $reservation->getStartDate() > $reservedTimeSlot->getStartDate() && $reservation->getStartDate() < $reservedTimeSlot->getEndDate();
+
+            // The end date is inside a reservation time slot
+            $endOverlaps = $reservation->getEndDate() > $reservedTimeSlot->getStartDate() && $reservation->getEndDate() < $reservedTimeSlot->getEndDate();
+
+            // A reservation is inside the requested time slot
+            $includesReservation = $reservation->getStartDate() <= $reservedTimeSlot->getStartDate() && $reservation->getEndDate() >= $reservedTimeSlot->getEndDate();
+
+            if ($startOverlaps || $endOverlaps || $includesReservation) {
                 throw new \RuntimeException('Time slot unavailable');
             }
         }
