@@ -6,6 +6,7 @@ use Mockery as m;
 use Ob\Hex\Domain\MeetingRoom;
 
 /**
+ * @covers Ob\Hex\Domain\EventSourcedEntity
  * @covers Ob\Hex\Domain\MeetingRoom
  * @covers Ob\Hex\Domain\Event\MeetingRoomWasCreated
  * @covers Ob\Hex\Domain\Event\ReservationWasAdded

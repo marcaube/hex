@@ -2,17 +2,11 @@
 
 namespace Ob\Hex\Domain;
 
-use Ob\Hex\Domain\Event\Event;
 use Ob\Hex\Domain\Event\MeetingRoomWasCreated;
 use Ob\Hex\Domain\Event\ReservationWasAdded;
 
-class MeetingRoom
+class MeetingRoom extends EventSourcedEntity
 {
-    /**
-     * @var Event[]
-     */
-    private $events = [];
-
     /**
      * @var int
      */
@@ -37,16 +31,6 @@ class MeetingRoom
     public static function create($capacity, $maxDuration)
     {
         return new static([new MeetingRoomWasCreated($capacity, $maxDuration)]);
-    }
-
-    /**
-     * @param Event[] $events
-     */
-    private function __construct($events)
-    {
-        foreach ($events as $event) {
-            $this->apply($event);
-        }
     }
 
     /**
@@ -93,25 +77,9 @@ class MeetingRoom
     }
 
     /**
-     * @param Event $event
-     */
-    private function apply(Event $event)
-    {
-        $classParts = explode('\\', get_class($event));
-        $method     = 'apply' . end($classParts);
-
-        if (!method_exists($this, $method)) {
-            return;
-        }
-
-        $this->events[] = $event;
-        $this->$method($event);
-    }
-
-    /**
      * @param MeetingRoomWasCreated $event
      */
-    private function applyMeetingRoomWasCreated(MeetingRoomWasCreated $event)
+    protected function applyMeetingRoomWasCreated(MeetingRoomWasCreated $event)
     {
         $this->capacity        = $event->capacity;
         $this->maximumDuration = $event->maxDuration;
@@ -120,7 +88,7 @@ class MeetingRoom
     /**
      * @param ReservationWasAdded $event
      */
-    private function applyReservationWasAdded(ReservationWasAdded $event)
+    protected function applyReservationWasAdded(ReservationWasAdded $event)
     {
         $this->reservations[] = $event->reservation;
     }

@@ -2,7 +2,7 @@
 
 namespace Ob\Hex\Domain\Event;
 
-class MeetingRoomWasCreated implements Event
+class MeetingRoomWasCreated
 {
     public $capacity;
 
