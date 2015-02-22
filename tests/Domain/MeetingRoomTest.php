@@ -66,7 +66,7 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
         $this->meetingRoom->makeReservation($reservation);
     }
 
-    public function testReservationHasMaximumDuration()
+    public function testReservationsHaveAMaximumDuration()
     {
         $reservation = m::mock('Ob\Hex\Domain\Reservation');
         $reservation->shouldReceive('getNumberOfAttendees')->andReturn(1);
