@@ -41,6 +41,7 @@ class MeetingRoom extends EventSourcedEntity
         $this->ensureHasCapacity($reservation);
         $this->ensureDurationIsValid($reservation);
         $this->ensureDoesNotOverlap($reservation);
+        $this->ensureInsideReservationPeriod($reservation);
 
         $this->apply(new ReservationWasAdded($reservation));
     }
@@ -91,6 +92,20 @@ class MeetingRoom extends EventSourcedEntity
             ) {
                 throw new \RuntimeException('Time slot unavailable');
             }
+        }
+    }
+
+    /**
+     * @param Reservation $reservation
+     *
+     * @throws \RuntimeException
+     */
+    private function ensureInsideReservationPeriod(Reservation $reservation)
+    {
+        $now = new \DateTimeImmutable();
+
+        if ($now->diff($reservation->getStartDate())->d > 7) {
+            throw new \RuntimeException('A reservation can not be created more than 7 days in advance');
         }
     }
 

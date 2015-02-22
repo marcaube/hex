@@ -93,6 +93,16 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
         $this->meetingRoom->makeReservation($reservation2);
     }
 
+    public function testReservationCanBeMadeUpTo7DaysInAdvance()
+    {
+        $startDate   = new \DateTimeImmutable('+8 days');
+        $endDate     = $startDate->modify('+1 hour');
+        $reservation = $this->createReservation($this->capacityLimit, $this->maxDuration, $startDate, $endDate);
+
+        $this->setExpectedException('\RuntimeException');
+        $this->meetingRoom->makeReservation($reservation);
+    }
+
     private function createReservation($attendees, $duration, \DateTimeImmutable $startDate = null, \DateTimeImmutable $endDate = null)
     {
         if (!$startDate) {
