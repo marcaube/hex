@@ -6,10 +6,11 @@ use Mockery as m;
 use Ob\Hex\Domain\MeetingRoom;
 
 /**
- * @covers Ob\Hex\Domain\EventSourcedEntity
  * @covers Ob\Hex\Domain\MeetingRoom
  * @covers Ob\Hex\Domain\Event\MeetingRoomWasCreated
  * @covers Ob\Hex\Domain\Event\ReservationWasAdded
+ *
+ * @uses Ob\Hex\Domain\EventSourcedEntity
  */
 class MeetingRoomTest extends \PHPUnit_Framework_TestCase
 {

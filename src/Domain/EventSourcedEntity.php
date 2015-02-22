@@ -6,10 +6,12 @@ abstract class EventSourcedEntity
 {
     protected $events = [];
 
-    /**
-     * @param array $events
-     */
-    protected function __construct($events)
+    public static function createFromEvents(array $events)
+    {
+        return new static($events);
+    }
+
+    protected function __construct(array $events)
     {
         foreach ($events as $event) {
             $this->apply($event);
