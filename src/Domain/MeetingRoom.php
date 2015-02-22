@@ -40,7 +40,9 @@ class MeetingRoom extends EventSourcedEntity
     {
         $this->ensureHasCapacity($reservation);
         $this->ensureDurationIsValid($reservation);
-        $this->ensureDoesNotOverlap($reservation);
+        $this->ensureStartDoesNotOverlapWithAnotherReservation($reservation);
+        $this->ensureEndDoesNotOverlapWithAnotherReservation($reservation);
+        $this->ensureNotInsideAnotherReservation($reservation);
         $this->ensureInsideReservationPeriod($reservation);
 
         $this->apply(new ReservationWasAdded($reservation));
@@ -83,19 +85,38 @@ class MeetingRoom extends EventSourcedEntity
      *
      * @throws \RuntimeException
      */
-    private function ensureDoesNotOverlap(Reservation $reservation)
+    private function ensureStartDoesNotOverlapWithAnotherReservation(Reservation $reservation)
     {
         foreach ($this->reservations as $reservedTimeSlot) {
-            // The start date is inside a reservation time slot
-            $startOverlaps = $reservation->getStartDate() > $reservedTimeSlot->getStartDate() && $reservation->getStartDate() < $reservedTimeSlot->getEndDate();
+            if ($reservation->getStartDate() > $reservedTimeSlot->getStartDate() && $reservation->getStartDate() < $reservedTimeSlot->getEndDate()) {
+                throw new \RuntimeException('Time slot unavailable');
+            }
+        }
+    }
 
-            // The end date is inside a reservation time slot
-            $endOverlaps = $reservation->getEndDate() > $reservedTimeSlot->getStartDate() && $reservation->getEndDate() < $reservedTimeSlot->getEndDate();
+    /**
+     * @param Reservation $reservation
+     *
+     * @throws \RuntimeException
+     */
+    private function ensureEndDoesNotOverlapWithAnotherReservation(Reservation $reservation)
+    {
+        foreach ($this->reservations as $reservedTimeSlot) {
+            if ($reservation->getEndDate() > $reservedTimeSlot->getStartDate() && $reservation->getEndDate() < $reservedTimeSlot->getEndDate()) {
+                throw new \RuntimeException('Time slot unavailable');
+            }
+        }
+    }
 
-            // A reservation is inside the requested time slot
-            $includesReservation = $reservation->getStartDate() <= $reservedTimeSlot->getStartDate() && $reservation->getEndDate() >= $reservedTimeSlot->getEndDate();
-
-            if ($startOverlaps || $endOverlaps || $includesReservation) {
+    /**
+     * @param Reservation $reservation
+     *
+     * @throws \RuntimeException
+     */
+    private function ensureNotInsideAnotherReservation(Reservation $reservation)
+    {
+        foreach ($this->reservations as $reservedTimeSlot) {
+            if ($reservation->getStartDate() <= $reservedTimeSlot->getStartDate() && $reservation->getEndDate() >= $reservedTimeSlot->getEndDate()) {
                 throw new \RuntimeException('Time slot unavailable');
             }
         }
