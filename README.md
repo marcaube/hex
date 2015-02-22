@@ -17,7 +17,7 @@ are quite simple:
 
 - [x] A **meeting room** has a limited capacity
 - [ ] **Meetings** cannot take place oustide business hours
-- [ ] Only one meeting can take place at the same time
+- [x] Only one meeting can take place at the same time (no overlap)
 - [x] Meeting duration cannot exceed 3h
 - [ ] **Employees** can make a **reservation** up to 7 days in advance
 - [ ] Employees can consult the meeting room **schedule**

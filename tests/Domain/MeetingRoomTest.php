@@ -46,12 +46,14 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->meetingRoom->getNumberOfReservations());
     }
 
-    public function testReservationCanBeAdded()
+    public function testReservationsCanBeAdded()
     {
-        $reservation = $this->createReservation($this->capacityLimit, $this->maxDuration);
+        $reservation1 = $this->createReservation($this->capacityLimit, $this->maxDuration, new \DateTimeImmutable(), new \DateTimeImmutable('+1 hour'));
+        $reservation2 = $this->createReservation($this->capacityLimit, $this->maxDuration, new \DateTimeImmutable('+1 hour'), new \DateTimeImmutable('+1 hour 30 minutes'));
 
-        $this->meetingRoom->makeReservation($reservation);
-        $this->assertEquals(1, $this->meetingRoom->getNumberOfReservations());
+        $this->meetingRoom->makeReservation($reservation1);
+        $this->meetingRoom->makeReservation($reservation2);
+        $this->assertEquals(2, $this->meetingRoom->getNumberOfReservations());
     }
 
     public function testHasALimitedCapacity()
@@ -70,11 +72,42 @@ class MeetingRoomTest extends \PHPUnit_Framework_TestCase
         $this->meetingRoom->makeReservation($reservation);
     }
 
-    private function createReservation($attendees, $duration)
+    public function testReservationsCanNotOverlap()
     {
+        $reservation1 = $this->createReservation(
+            $this->capacityLimit,
+            $this->maxDuration,
+            new \DateTimeImmutable('now'),
+            new \DateTimeImmutable('+1 hour')
+        );
+
+        $reservation2 = $this->createReservation(
+            $this->capacityLimit,
+            $this->maxDuration,
+            new \DateTimeImmutable('+30 minutes'),
+            new \DateTimeImmutable('+2 hours')
+        );
+
+        $this->setExpectedException('\RuntimeException');
+        $this->meetingRoom->makeReservation($reservation1);
+        $this->meetingRoom->makeReservation($reservation2);
+    }
+
+    private function createReservation($attendees, $duration, \DateTimeImmutable $startDate = null, \DateTimeImmutable $endDate = null)
+    {
+        if (!$startDate) {
+            $startDate = new \DateTimeImmutable();
+        }
+
+        if (!$endDate) {
+            $endDate = new \DateTimeImmutable();
+        }
+
         $reservation = m::mock('Ob\Hex\Domain\Reservation');
         $reservation->shouldReceive('getNumberOfAttendees')->andReturn($attendees);
         $reservation->shouldReceive('getDuration')->andReturn($duration);
+        $reservation->shouldReceive('getStartDate')->andReturn($startDate);
+        $reservation->shouldReceive('getEndDate')->andReturn($endDate);
 
         return $reservation;
     }

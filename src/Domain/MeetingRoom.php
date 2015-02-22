@@ -18,7 +18,7 @@ class MeetingRoom extends EventSourcedEntity
     private $maximumDuration;
 
     /**
-     * @var array
+     * @var Reservation[]
      */
     private $reservations = [];
 
@@ -40,6 +40,7 @@ class MeetingRoom extends EventSourcedEntity
     {
         $this->ensureHasCapacity($reservation);
         $this->ensureDurationIsValid($reservation);
+        $this->ensureDoesNotOverlap($reservation);
 
         $this->apply(new ReservationWasAdded($reservation));
     }
@@ -73,6 +74,23 @@ class MeetingRoom extends EventSourcedEntity
     {
         if ($this->maximumDuration < $reservation->getDuration()) {
             throw new \RuntimeException('Maximum reservation duration exceeded');
+        }
+    }
+
+    /**
+     * @param Reservation $reservation
+     *
+     * @throws \RuntimeException
+     */
+    private function ensureDoesNotOverlap(Reservation $reservation)
+    {
+        foreach ($this->reservations as $reservedTimeSlot) {
+            if (
+                ($reservation->getStartDate() >= $reservedTimeSlot->getStartDate() && $reservation->getStartDate() < $reservedTimeSlot->getEndDate())
+                || ($reservation->getEndDate() > $reservedTimeSlot->getStartDate() && $reservation->getEndDate() <= $reservedTimeSlot->getEndDate())
+            ) {
+                throw new \RuntimeException('Time slot unavailable');
+            }
         }
     }
 
