@@ -2,7 +2,9 @@
 
 namespace Ob\Hex\Domain;
 
-class Email
+use Ob\Hex\Domain\Serializer\Serializable;
+
+class Email implements Serializable
 {
     // Hardly fool-proof, i.e no IP support. Definitely not RFC 5322 compliant
     const EMAIL_FORMAT = "/^(?!.{255,})(?!.{65,}@)([!#-'*+\/-9=?^-~-]+)(?>\.(?1))*@(?!.*[^.]{64,})(?>[a-z0-9](?>[a-z0-9-]*[a-z0-9])?\.){1,126}[a-z]{2,6}$/iD";
@@ -49,5 +51,25 @@ class Email
         if (!preg_match(self::EMAIL_FORMAT, $email)) {
             throw new \InvalidArgumentException('Invalid email format');
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function serialize()
+    {
+        return [
+            'email' => $this->email,
+        ];
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return Email
+     */
+    public static function unserialize(array $data)
+    {
+        return new Email($data['email']);
     }
 }

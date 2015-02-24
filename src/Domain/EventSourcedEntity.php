@@ -4,13 +4,24 @@ namespace Ob\Hex\Domain;
 
 abstract class EventSourcedEntity
 {
+    /**
+     * @var array
+     */
     protected $changes = [];
 
+    /**
+     * @param array $changes
+     *
+     * @return static
+     */
     public static function createFromChanges(array $changes)
     {
         return new static($changes);
     }
 
+    /**
+     * @param array $changes
+     */
     protected function __construct(array $changes)
     {
         foreach ($changes as $change) {
