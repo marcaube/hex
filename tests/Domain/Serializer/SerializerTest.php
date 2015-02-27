@@ -2,16 +2,16 @@
 
 namespace Ob\Hex\Tests\Domain;
 
-use Ob\Hex\Domain\Serializer\JsonSerializer;
+use Ob\Hex\Domain\Serializer\Serializer;
 use Ob\Hex\Domain\Serializer\Serializable;
 
 /**
- * @covers Ob\Hex\Domain\Serializer\JsonSerializer
+ * @covers Ob\Hex\Domain\Serializer\Serializer
  */
-class JsonSerializerTest extends \PHPUnit_Framework_TestCase
+class SerializerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var JsonSerializer
+     * @var Serializer
      */
     private $serializer;
 
@@ -22,24 +22,24 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->serializer = new JsonSerializer();
+        $this->serializer = new Serializer();
         $this->object     = new SerializableObject('bar');
     }
 
     public function testCanSerializeObject()
     {
-        $json = $this->serializer->serialize($this->object);
-        $this->assertInternalType('string', $json);
+        $data = $this->serializer->serialize($this->object);
+        $this->assertInternalType('array', $data);
 
-        return $json;
+        return $data;
     }
 
     /**
      * @depends testCanSerializeObject
      */
-    public function testCanUnserializeObject($json)
+    public function testCanUnserializeObject($data)
     {
-        $object = $this->serializer->unserialize($json);
+        $object = $this->serializer->unserialize($data);
         $this->assertEquals($this->object, $object);
     }
 }

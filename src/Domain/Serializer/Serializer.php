@@ -2,30 +2,28 @@
 
 namespace Ob\Hex\Domain\Serializer;
 
-class JsonSerializer implements SerializerInterface
+class Serializer implements SerializerInterface
 {
     /**
      * @param Serializable $object
      *
-     * @return string
+     * @return array
      */
     public function serialize(Serializable $object)
     {
-        return json_encode([
+        return[
             'class' => get_class($object),
             'data'  => $object->serialize(),
-        ]);
+        ];
     }
 
     /**
-     * @param string $json
+     * @param array $data
      *
      * @return Serializable
      */
-    public function unserialize($json)
+    public function unserialize($data)
     {
-        $object = json_decode($json, true);
-
-        return $object['class']::unserialize($object['data']);
+        return $data['class']::unserialize($data['data']);
     }
 }
