@@ -26,10 +26,12 @@ are quite simple:
 ## Documentation
 
 Here are succinct descriptions of concepts related to [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming),
-[DDD](https://en.wikipedia.org/wiki/Domain-driven_design), Hexagonal Architecture, CQRS and Event Sourcing.
+[DDD](https://en.wikipedia.org/wiki/Domain-driven_design), Hexagonal Architecture, CQRS and Event Sourcing. They are
+described as I understand them, illustrated with code examples.
 
 - [Entity](doc/entity.md)
 - [Repository](doc/repository.md)
+- [Specification](doc/specification.md)
 - [Value Object](doc/value-object.md)
 
 
