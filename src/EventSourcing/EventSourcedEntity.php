@@ -1,6 +1,6 @@
 <?php
 
-namespace Ob\Hex\Domain;
+namespace Ob\Hex\EventSourcing;
 
 abstract class EventSourcedEntity
 {

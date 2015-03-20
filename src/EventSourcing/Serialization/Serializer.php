@@ -1,6 +1,6 @@
 <?php
 
-namespace Ob\Hex\Domain\Serializer;
+namespace Ob\Hex\EventSourcing\Serialization;
 
 class Serializer implements SerializerInterface
 {

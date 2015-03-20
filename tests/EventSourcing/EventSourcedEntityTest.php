@@ -1,11 +1,11 @@
 <?php
 
-namespace Ob\Hex\Tests\Domain;
+namespace Ob\Hex\Tests\EventSourcing;
 
-use Ob\Hex\Domain\EventSourcedEntity;
+use Ob\Hex\EventSourcing\EventSourcedEntity;
 
 /**
- * @covers Ob\Hex\Domain\EventSourcedEntity
+ * @covers b\Hex\EventSourcing\EventSourcedEntity
  */
 class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
 {

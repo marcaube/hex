@@ -4,6 +4,7 @@ namespace Ob\Hex\Domain;
 
 use Ob\Hex\Domain\Events\MeetingRoomWasCreated;
 use Ob\Hex\Domain\Events\ReservationWasAdded;
+use Ob\Hex\EventSourcing\EventSourcedEntity;
 
 class MeetingRoom extends EventSourcedEntity
 {

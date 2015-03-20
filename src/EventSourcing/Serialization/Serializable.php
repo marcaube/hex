@@ -1,6 +1,6 @@
 <?php
 
-namespace Ob\Hex\Domain\Serializer;
+namespace Ob\Hex\EventSourcing\Serialization;
 
 interface Serializable
 {
@@ -10,6 +10,8 @@ interface Serializable
     public function serialize();
 
     /**
+     * @param array $data
+     *
      * @return mixed
      */
     public static function unserialize(array $data);

@@ -1,9 +1,9 @@
 <?php
 
-namespace Ob\Hex\Tests\Domain;
+namespace Ob\Hex\Tests\EventSourcing\Serialization;
 
-use Ob\Hex\Domain\Serializer\Serializer;
-use Ob\Hex\Domain\Serializer\Serializable;
+use Ob\Hex\EventSourcing\Serialization\Serializer;
+use Ob\Hex\EventSourcing\Serialization\Serializable;
 
 /**
  * @covers Ob\Hex\Domain\Serializer\Serializer

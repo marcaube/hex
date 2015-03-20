@@ -1,10 +1,12 @@
 <?php
 
-namespace Ob\Hex\Domain\Serializer;
+namespace Ob\Hex\EventSourcing\Serialization;
 
 interface SerializerInterface
 {
     /**
+     * @param Serializable $object
+     *
      * @return mixed
      */
     public function serialize(Serializable $object);

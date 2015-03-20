@@ -2,7 +2,7 @@
 
 namespace Ob\Hex\Domain;
 
-use Ob\Hex\Domain\Serializer\Serializable;
+use Ob\Hex\EventSourcing\Serialization\Serializable;
 
 class Email implements Serializable
 {
