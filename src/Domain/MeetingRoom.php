@@ -2,8 +2,8 @@
 
 namespace Ob\Hex\Domain;
 
-use Ob\Hex\Domain\Change\MeetingRoomWasCreated;
-use Ob\Hex\Domain\Change\ReservationWasAdded;
+use Ob\Hex\Domain\Events\MeetingRoomWasCreated;
+use Ob\Hex\Domain\Events\ReservationWasAdded;
 
 class MeetingRoom extends EventSourcedEntity
 {
