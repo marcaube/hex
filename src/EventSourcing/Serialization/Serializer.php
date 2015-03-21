@@ -11,7 +11,7 @@ class Serializer implements SerializerInterface
      */
     public function serialize(Serializable $object)
     {
-        return[
+        return [
             'class' => get_class($object),
             'data'  => $object->serialize(),
         ];

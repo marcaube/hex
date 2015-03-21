@@ -7,10 +7,10 @@ use Ob\Hex\Domain\MeetingRoom;
 
 /**
  * @covers Ob\Hex\Domain\MeetingRoom
- * @covers Ob\Hex\Domain\Change\MeetingRoomWasCreated
- * @covers Ob\Hex\Domain\Change\ReservationWasAdded
+ * @covers Ob\Hex\Domain\Events\MeetingRoomWasCreated
+ * @covers Ob\Hex\Domain\Events\ReservationWasAdded
  *
- * @uses Ob\Hex\Domain\EventSourcedEntity
+ * @uses Ob\Hex\EventSourcing\EventSourcedEntity
  */
 class MeetingRoomTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
 {

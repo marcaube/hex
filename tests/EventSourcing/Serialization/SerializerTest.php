@@ -2,11 +2,11 @@
 
 namespace Ob\Hex\Tests\EventSourcing\Serialization;
 
-use Ob\Hex\EventSourcing\Serialization\Serializer;
 use Ob\Hex\EventSourcing\Serialization\Serializable;
+use Ob\Hex\EventSourcing\Serialization\Serializer;
 
 /**
- * @covers Ob\Hex\Domain\Serializer\Serializer
+ * @covers Ob\Hex\EventSourcing\Serialization\Serializer
  */
 class SerializerTest extends \PHPUnit_Framework_TestCase
 {

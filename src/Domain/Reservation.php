@@ -132,7 +132,7 @@ class Reservation implements Serializable
             'startDate' => $this->startDate->format('Y-m-d\TH:i:s.uP'),
             'endDate'   => $this->endDate->format('Y-m-d\TH:i:s.uP'),
             'organizer' => $this->organizer->serialize(),
-            'attendees' => $attendees
+            'attendees' => $attendees,
         ];
     }
 

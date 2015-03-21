@@ -5,7 +5,7 @@ namespace Ob\Hex\Tests\EventSourcing;
 use Ob\Hex\EventSourcing\EventSourcedEntity;
 
 /**
- * @covers b\Hex\EventSourcing\EventSourcedEntity
+ * @covers Ob\Hex\EventSourcing\EventSourcedEntity
  */
 class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
 {
