@@ -138,10 +138,6 @@ final class Serializer implements SerializerInterface
      */
     private function unserializeArray(array $array)
     {
-        if (isset($array['class']) && isset($array['data'])) {
-            return $this->unserializeObject($array['class'], $array['data']);
-        }
-
         $result = [];
 
         foreach ($array as $key => $value) {
