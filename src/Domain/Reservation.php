@@ -2,9 +2,7 @@
 
 namespace Ob\Hex\Domain;
 
-use Ob\Hex\EventSourcing\Serialization\Serializable;
-
-class Reservation implements Serializable
+class Reservation
 {
     /**
      * @var \DateTimeImmutable
@@ -115,42 +113,5 @@ class Reservation implements Serializable
     public function removeAttendee(Email $attendee)
     {
         $this->attendeesRemoved[] = $attendee;
-    }
-
-    /**
-     * @return array
-     */
-    public function serialize()
-    {
-        $attendees = [];
-
-        foreach ($this->getAttendees() as $key => $attendee) {
-            $attendees[$key] = $attendee->serialize();
-        }
-
-        return [
-            'startDate' => $this->startDate->format('Y-m-d\TH:i:s.uP'),
-            'endDate'   => $this->endDate->format('Y-m-d\TH:i:s.uP'),
-            'organizer' => $this->organizer->serialize(),
-            'attendees' => $attendees,
-        ];
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return Email
-     */
-    public static function unserialize(array $data)
-    {
-        $reservation = new Reservation(
-            new \DateTimeImmutable($data['startDate']),
-            new \DateTimeImmutable($data['endDate']),
-            new Email($data['organizer'])
-        );
-
-        foreach ($data['attendees'] as $attendee) {
-            $reservation->addAttendee(new Email($attendee));
-        }
     }
 }

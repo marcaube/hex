@@ -5,16 +5,16 @@ namespace Ob\Hex\EventSourcing\Serialization;
 interface SerializerInterface
 {
     /**
-     * @param Serializable $object
+     * @param mixed $object
      *
      * @return mixed
      */
-    public function serialize(Serializable $object);
+    public function serialize($object);
 
     /**
      * @param mixed $data
      *
-     * @return Serializable
+     * @return mixed
      */
     public function unserialize($data);
 }

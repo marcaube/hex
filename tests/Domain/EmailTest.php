@@ -59,20 +59,4 @@ class EmailTest extends \PHPUnit_Framework_TestCase
             'domain leading dash' => ['foo@-bar.com'],
         ];
     }
-
-    public function testCanBeSerialized()
-    {
-        $expected = ['email' => 'foo@bar.com'];
-        $input    = new Email('foo@bar.com');
-
-        $this->assertEquals($expected, $input->serialize());
-    }
-
-    public function testCanBeUnserialized()
-    {
-        $expected = new Email('foo@bar.com');
-        $input    = ['email' => 'foo@bar.com'];
-
-        $this->assertEquals($expected, Email::unserialize($input));
-    }
 }
