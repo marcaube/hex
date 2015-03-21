@@ -80,8 +80,8 @@ final class Serializer implements SerializerInterface
     {
         $result = [];
 
-        foreach ($array as $object) {
-            $result[] = $this->serializeRecursively($object);
+        foreach ($array as $key => $value) {
+            $result[$key] = $this->serializeRecursively($value);
         }
 
         return $result;
@@ -96,6 +96,10 @@ final class Serializer implements SerializerInterface
     {
         if (is_array($input) && isset($input['class']) && isset($input['data'])) {
             return $this->unserializeObject($input['class'], $input['data']);
+        }
+
+        if (is_array($input)) {
+            return $this->unserializeArray($input);
         }
 
         return $input;
@@ -125,5 +129,21 @@ final class Serializer implements SerializerInterface
         }
 
         return $object;
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return array
+     */
+    private function unserializeArray(array $array)
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            $result[$key] = $this->unserializeRecursively($value);
+        }
+
+        return $result;
     }
 }

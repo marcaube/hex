@@ -44,6 +44,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
             [rand(1, 1000)],
             ['foo'],
             [[1, 2, 3]],
+            [['foo' => 1, 'bar' => 2, 'baz' => 3]],
         ];
     }
 
