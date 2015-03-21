@@ -20,6 +20,7 @@
         "phpunit/phpunit": "~4.5",
         "humbug/humbug": "~1.0@dev",
         "padraic/phpunit-extensions": "~1.0@dev",
+        "padraic/phar-updater": "~1.0@dev",
         "scrutinizer/ocular": "~1.1",
         "mockery/mockery": "0.9.*"
     },
