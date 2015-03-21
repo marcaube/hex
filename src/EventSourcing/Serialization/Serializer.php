@@ -95,6 +95,10 @@ final class Serializer implements SerializerInterface
     private function unserializeRecursively($input)
     {
         if (is_array($input)) {
+            if (isset($input['class']) && isset($input['data'])) {
+                return $this->unserializeObject($input['class'], $input['data']);
+            }
+
             return $this->unserializeArray($input);
         }
 
@@ -134,8 +138,8 @@ final class Serializer implements SerializerInterface
      */
     private function unserializeArray(array $array)
     {
-        if (isset($input['class']) && isset($input['data'])) {
-            return $this->unserializeObject($input['class'], $input['data']);
+        if (isset($array['class']) && isset($array['data'])) {
+            return $this->unserializeObject($array['class'], $array['data']);
         }
 
         $result = [];
