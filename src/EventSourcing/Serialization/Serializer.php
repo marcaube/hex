@@ -14,9 +14,14 @@ final class Serializer implements SerializerInterface
         return json_encode($this->serializeRecursively($input));
     }
 
-    public function unserialize($data)
+    /**
+     * @param string $input
+     *
+     * @return mixed
+     */
+    public function unserialize($input)
     {
-        
+        return $this->unserializeRecursively(json_decode($input, true));
     }
 
     /**
@@ -31,7 +36,9 @@ final class Serializer implements SerializerInterface
                 'class' => get_class($input),
                 'data'  => $this->serializeObject($input),
             ];
-        } elseif (is_array($input)) {
+        }
+
+        if (is_array($input)) {
             return $this->serializeArray($input);
         }
 
@@ -78,5 +85,45 @@ final class Serializer implements SerializerInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return mixed
+     */
+    private function unserializeRecursively($input)
+    {
+        if (is_array($input) && isset($input['class']) && isset($input['data'])) {
+            return $this->unserializeObject($input['class'], $input['data']);
+        }
+
+        return $input;
+    }
+
+    /**
+     * @param string $class
+     * @param mixed  $data
+     *
+     * @return object
+     */
+    private function unserializeObject($class, $data)
+    {
+        // Internal PHP classes cannot be instantiated without invoking their constructor
+        if (in_array($class, ['DateTime', 'DateTimeImmutable'])) {
+            return new $class($data);
+        }
+
+        $reflection = new \ReflectionClass($class);
+        $object     = $reflection->newInstanceWithoutConstructor();
+
+        foreach ($reflection->getProperties() as $property) {
+            $property->setAccessible(true);
+            $name = $property->getName();
+
+            $property->setValue($object, $this->unserializeRecursively($data[$name]));
+        }
+
+        return $object;
     }
 }

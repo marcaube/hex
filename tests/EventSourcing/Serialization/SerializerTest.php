@@ -27,6 +27,17 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(json_encode($input), $this->serializer->serialize($input));
     }
 
+    /**
+     * @depends testCanSerializePrimitives
+     * @dataProvider primitivesProvider
+     */
+    public function testCanUnserializePrimitives($input)
+    {
+        $json = $this->serializer->serialize($input);
+
+        $this->assertEquals($input, $this->serializer->unserialize($json));
+    }
+
     public function primitivesProvider()
     {
         return [
@@ -53,6 +64,18 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals($expected, $this->serializer->serialize($input));
+
+        return $input;
+    }
+
+    /**
+     * @depends testCanSerializeASimpleObject
+     */
+    public function testCanUnserializeASimpleObject($input)
+    {
+        $json = $this->serializer->serialize($input);
+
+        $this->assertEquals($input, $this->serializer->unserialize($json));
     }
 
     /**
@@ -61,6 +84,15 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
     public function testCanSerializeDates($input, $expected)
     {
         $this->assertEquals($expected, $this->serializer->serialize($input));
+    }
+
+    /**
+     * @depends testCanSerializeDates
+     * @dataProvider datesProvider
+     */
+    public function testCanUnserializeDates($input, $expected)
+    {
+        $this->assertEquals($input, $this->serializer->unserialize($expected));
     }
 
     public function datesProvider()
@@ -93,6 +125,18 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals($expected, $this->serializer->serialize($input));
+
+        return $input;
+    }
+
+    /**
+     * @depends testCanSerializeAComplexObject
+     */
+    public function testCanUnserializeAComplexObject($input)
+    {
+        $json = $this->serializer->serialize($input);
+
+        $this->assertEquals($input, $this->serializer->unserialize($json));
     }
 }
 
