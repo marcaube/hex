@@ -9,9 +9,7 @@ All Notable changes to `Hex` will be documented in this file.
 
 ### Added
 
-- `Serializer` to encode entities as a arrays, or decode them back to objects
-- `Serializable` interface that entities can implement to be, guess what, serializable
-- `MeetingRoom` entity
+- `Serializer` to encode entities as json, or decode them back to objects
+- `MeetingRoom` entity with domain events
 - `Reservation` entity
 - `Email` value object
-
