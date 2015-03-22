@@ -16,7 +16,12 @@ abstract class EventSourcedEntity
      */
     public static function createFromEvents(array $events)
     {
-        return new static($events);
+        $entity = new static($events);
+
+        // Release events so they are not persisted multiple times
+        $entity->getEvents();
+
+        return $entity;
     }
 
     /**

@@ -31,16 +31,20 @@ class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
 
     public function testEventsCanBeRetrieved()
     {
-        $events = [new EntitityWasCreated()];
-        $entity = Entity::createFromEvents($events);
+        $entity = Entity::create();
 
-        $this->assertEquals($events, $entity->getEvents());
+        $this->assertEquals([new EntitityWasCreated()], $entity->getEvents());
     }
 }
 
 class Entity extends EventSourcedEntity
 {
     private $foo = 0;
+
+    public static function create()
+    {
+        return new static([new EntitityWasCreated()]);
+    }
 
     public function getFoo()
     {
