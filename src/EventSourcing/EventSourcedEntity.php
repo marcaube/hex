@@ -7,52 +7,52 @@ abstract class EventSourcedEntity
     /**
      * @var array
      */
-    protected $changes = [];
+    protected $events = [];
 
     /**
-     * @param array $changes
+     * @param array $events
      *
      * @return static
      */
-    public static function createFromChanges(array $changes)
+    public static function createFromEvents(array $events)
     {
-        return new static($changes);
+        return new static($events);
     }
 
     /**
-     * @param array $changes
+     * @param array $events
      */
-    protected function __construct(array $changes)
+    protected function __construct(array $events)
     {
-        foreach ($changes as $change) {
-            $this->apply($change);
+        foreach ($events as $event) {
+            $this->apply($event);
         }
     }
 
     /**
-     * @param mixed $change
+     * @param mixed $event
      */
-    protected function apply($change)
+    protected function apply($event)
     {
-        $classParts = explode('\\', get_class($change));
+        $classParts = explode('\\', get_class($event));
         $method     = 'apply' . end($classParts);
 
         if (!method_exists($this, $method)) {
             return;
         }
 
-        $this->changes[] = $change;
-        $this->$method($change);
+        $this->events[] = $event;
+        $this->$method($event);
     }
 
     /**
      * @return array
      */
-    public function getChanges()
+    public function getEvents()
     {
-        $changes       = $this->changes;
-        $this->changes = [];
+        $events       = $this->events;
+        $this->events = [];
 
-        return $changes;
+        return $events;
     }
 }

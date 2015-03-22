@@ -148,22 +148,22 @@ class MeetingRoom extends EventSourcedEntity
     }
 
     /**
-     * @param MeetingRoomWasCreated $change
+     * @param MeetingRoomWasCreated $event
      */
-    protected function applyMeetingRoomWasCreated(MeetingRoomWasCreated $change)
+    protected function applyMeetingRoomWasCreated(MeetingRoomWasCreated $event)
     {
-        $this->capacity        = $change->capacity;
-        $this->maximumDuration = $change->maxDuration;
+        $this->capacity        = $event->capacity;
+        $this->maximumDuration = $event->maxDuration;
     }
 
     /**
-     * @param ReservationWasAdded $change
+     * @param ReservationWasAdded $event
      */
-    protected function applyReservationWasAdded(ReservationWasAdded $change)
+    protected function applyReservationWasAdded(ReservationWasAdded $event)
     {
         // This key ensure the reservations are sorted
-        $date = $change->reservation->getStartDate()->format('YmdHis');
+        $date = $event->reservation->getStartDate()->format('YmdHis');
 
-        $this->reservations[$date] = $change->reservation;
+        $this->reservations[$date] = $event->reservation;
     }
 }
