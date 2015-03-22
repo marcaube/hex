@@ -48,7 +48,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testCanSerializeASimpleObject()
+    public function testCanSerializeObjects()
     {
         $int    = rand(1, 1000);
         $string = 'foo';
@@ -70,9 +70,9 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testCanSerializeASimpleObject
+     * @depends testCanSerializeObjects
      */
-    public function testCanUnserializeASimpleObject($input)
+    public function testCanUnserializeObjects($input)
     {
         $json = $this->serializer->serialize($input);
 
@@ -104,7 +104,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testCanSerializeAComplexObject()
+    public function testCanSerializeObjectsRecursively()
     {
         $int    = rand(1, 1000);
         $string = 'foo';
@@ -131,9 +131,9 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testCanSerializeAComplexObject
+     * @depends testCanSerializeObjectsRecursively
      */
-    public function testCanUnserializeAComplexObject($input)
+    public function testCanUnserializeObjectsRecursively($input)
     {
         $json = $this->serializer->serialize($input);
 

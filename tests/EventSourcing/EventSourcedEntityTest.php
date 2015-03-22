@@ -29,7 +29,7 @@ class EventSourcedEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $entity->getFoo());
     }
 
-    public function testEventsCanBeRetrived()
+    public function testEventsCanBeRetrieved()
     {
         $events = [new EntitityWasCreated()];
         $entity = Entity::createFromChanges($events);
