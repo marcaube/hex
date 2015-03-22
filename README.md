@@ -45,6 +45,16 @@ $ ./vendor/bin/humbug
 ```
 
 
+## Credits
+
+Hex takes inspiration and borrows a lot of ideas and code from some really awesome PHP projects:
+
+- [Broadway](https://github.com/qandidate-labs/broadway) by [Quandidate Labs](https://github.com/qandidate-labs)
+- [LiteCQRS for PHP](https://github.com/beberlei/litecqrs-php) by [Benjamin Eberlei](https://github.com/beberlei)
+- [Predaddy](https://github.com/szjani/predaddy) by [Janos Szurovecz](https://github.com/szjani)
+- [Playground: Event Sourcing](https://github.com/RobinMalfait/playground-event-sourcing) by [Robin Malfait](https://github.com/RobinMalfait)
+
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
