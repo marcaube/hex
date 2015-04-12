@@ -18,7 +18,7 @@ class MemoryStoreTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->store = new MemoryStore();
+        $this->store  = new MemoryStore();
         $this->events = [
             new MemoryStoreTestEventOne(),
             new MemoryStoreTestEventTwo(),
