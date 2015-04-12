@@ -4,7 +4,7 @@ namespace Ob\Hex\Domain\Events;
 
 use Ob\Hex\Domain\Reservation;
 
-class ReservationWasAdded
+final class ReservationWasAdded
 {
     public $reservation;
 

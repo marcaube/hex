@@ -2,7 +2,7 @@
 
 namespace Ob\Hex\EventSourcing\Storage;
 
-class MemoryStore implements EventStoreInterface
+final class MemoryStore implements EventStoreInterface
 {
     private $events = [];
 

@@ -5,7 +5,7 @@ namespace Ob\Hex\Application;
 use Ob\Hex\Domain\Reservation;
 use Ob\Hex\Domain\ScheduleRenderer;
 
-class PlainTextScheduleRenderer implements ScheduleRenderer
+final class PlainTextScheduleRenderer implements ScheduleRenderer
 {
     /**
      * @param Reservation[] $reservations

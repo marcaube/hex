@@ -2,7 +2,7 @@
 
 namespace Ob\Hex\Domain\Events;
 
-class MeetingRoomWasCreated
+final class MeetingRoomWasCreated
 {
     public $capacity;
 
