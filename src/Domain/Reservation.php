@@ -102,7 +102,7 @@ class Reservation
     /**
      * @param Email $attendee
      */
-    public function addAttendee(Email $attendee)
+    public function invite(Email $attendee)
     {
         $this->attendeesAdded[] = $attendee;
     }
@@ -110,7 +110,7 @@ class Reservation
     /**
      * @param Email $attendee
      */
-    public function removeAttendee(Email $attendee)
+    public function uninvite(Email $attendee)
     {
         $this->attendeesRemoved[] = $attendee;
     }

@@ -79,20 +79,20 @@ class ReservationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->reservation->getNumberOfAttendees());
     }
 
-    public function testAttendeeCanBeAdded()
+    public function testEmployeeCanBeInvited()
     {
-        $this->reservation->addAttendee($this->attendee);
+        $this->reservation->invite($this->attendee);
         $this->assertEquals(1, $this->reservation->getNumberOfAttendees());
 
         return $this->reservation;
     }
 
     /**
-     * @depends testAttendeeCanBeAdded
+     * @depends testEmployeeCanBeInvited
      */
-    public function testAttendeeCanBeRemoved(Reservation $event)
+    public function testEmployeeCanBeUninvited(Reservation $event)
     {
-        $event->removeAttendee($this->attendee);
+        $event->uninvite($this->attendee);
         $this->assertEquals(0, $event->getNumberOfAttendees());
     }
 }
