@@ -29,6 +29,7 @@ Here are succinct descriptions of concepts related to [OOP](https://en.wikipedia
 [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), Hexagonal Architecture, CQRS and Event Sourcing. They are
 described as I understand them, illustrated with code examples.
 
+- [Command](doc/command.md)
 - [Entity](doc/entity.md)
 - [Repository](doc/repository.md)
 - [Specification](doc/specification.md)
