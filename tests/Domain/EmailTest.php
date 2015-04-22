@@ -18,7 +18,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $email = 'foo@bar.com';
 
-        $this->assertSame($email, (new Email($email))->asString());
+        $this->assertSame($email, (string) new Email($email));
     }
 
     /**

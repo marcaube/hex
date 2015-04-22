@@ -4,9 +4,6 @@ namespace Ob\Hex\Domain;
 
 class Email
 {
-    // Hardly fool-proof, i.e no IP support. Definitely not RFC 5322 compliant
-    const EMAIL_FORMAT = "/^(?!.{255,})(?!.{65,}@)([!#-'*+\/-9=?^-~-]+)(?>\.(?1))*@(?!.*[^.]{64,})(?>[a-z0-9](?>[a-z0-9-]*[a-z0-9])?\.){1,126}[a-z]{2,6}$/iD";
-
     /**
      * @var string
      */
@@ -26,7 +23,7 @@ class Email
     /**
      * @return string
      */
-    public function asString()
+    public function __toString()
     {
         return $this->email;
     }
@@ -46,8 +43,8 @@ class Email
      */
     private function ensureHasValidFormat($email)
     {
-        if (!preg_match(self::EMAIL_FORMAT, $email)) {
-            throw new \InvalidArgumentException('Invalid email format');
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException(sprintf('"%s" is not a valid email', $email));
         }
     }
 }

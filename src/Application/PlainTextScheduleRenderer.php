@@ -22,7 +22,7 @@ final class PlainTextScheduleRenderer implements ScheduleRenderer
             $text .= $reservation->getEndDate()->format('H\hi');
             $text .= ' : ';
             $text .= $reservation->getNumberOfAttendees() . ' attendee(s),';
-            $text .= ' organized by ' . $reservation->getOrganizer()->asString();
+            $text .= ' organized by ' . $reservation->getOrganizer();
             $text .= PHP_EOL;
         }
 
