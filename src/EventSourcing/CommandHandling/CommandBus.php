@@ -14,7 +14,6 @@ class CommandBus
      */
     public function handle(CommandInterface $command)
     {
-        // Naive mapping of command to handler (i.e. fooCommand -> fooCommandHandler)
         $commandFQCN = get_class($command);
 
         if (isset($this->handlers[$commandFQCN])) {
