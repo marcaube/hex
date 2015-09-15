@@ -139,6 +139,22 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($input, $this->serializer->unserialize($json));
     }
+
+    public function testCanSerializeClosures()
+    {
+        $closure = function ($number) {
+            return $number / 2;
+        };
+
+        $serializer = new Serializer(new \SuperClosure\Serializer());
+        $json = $serializer->serialize($closure);
+
+        /** @var \Closure $unserializedClosure */
+        $unserializedClosure = $serializer->unserialize($json);
+
+        $this->assertEquals($closure, $unserializedClosure);
+        $this->assertEquals(2, $unserializedClosure(4));
+    }
 }
 
 class SimpleObject

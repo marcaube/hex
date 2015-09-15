@@ -2,8 +2,23 @@
 
 namespace Ob\Hex\EventSourcing\Serialization;
 
+use SuperClosure\Serializer as ClosureSerializer;
+
 final class Serializer implements SerializerInterface
 {
+    /**
+     * @var ClosureSerializer
+     */
+    private $closureSerializer;
+
+    /**
+     * @param ClosureSerializer $closureSerializer
+     */
+    public function __construct(ClosureSerializer $closureSerializer = null)
+    {
+        $this->closureSerializer = $closureSerializer;
+    }
+
     /**
      * @param mixed $input
      *
@@ -58,6 +73,10 @@ final class Serializer implements SerializerInterface
             return $object->format('Y-m-d\TH:i:s.uP');
         }
 
+        if (get_class($object) === 'Closure' && $this->closureSerializer) {
+            return $this->serializeClosure($object);
+        }
+
         $data       = [];
         $properties = (new \ReflectionClass($object))->getProperties();
 
@@ -85,6 +104,16 @@ final class Serializer implements SerializerInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param \Closure $closure
+     *
+     * @return string
+     */
+    private function serializeClosure(\Closure $closure)
+    {
+        return $this->closureSerializer->serialize($closure);
     }
 
     /**
@@ -118,6 +147,10 @@ final class Serializer implements SerializerInterface
             return new $class($data);
         }
 
+        if ($class === 'Closure' && $this->closureSerializer) {
+            return $this->unserializeClosure($data);
+        }
+
         $reflection = new \ReflectionClass($class);
         $object     = $reflection->newInstanceWithoutConstructor();
 
@@ -145,5 +178,15 @@ final class Serializer implements SerializerInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $serializedClosure
+     *
+     * @return string
+     */
+    private function unserializeClosure($serializedClosure)
+    {
+        return $this->closureSerializer->unserialize($serializedClosure);
     }
 }
